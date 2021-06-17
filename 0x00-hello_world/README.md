@@ -1,5 +1,5 @@
 0x00. C - Hello, World
-Description
+ Description
 What you should learn from this project:
 
 How to compile using gcc
