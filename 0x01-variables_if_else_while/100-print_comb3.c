@@ -12,22 +12,20 @@ int main(void)
 	int c;
 	int i;
 
-	i = '0';
-	c = '0';
-	while (c <= '9')
+	for (c = '0' ; c <= '9' ; c++)
 	{
-		while (i <= '9')
+		for (i = '0' ; i <= '9' ; i++)
 		{
 			putchar(c);
 			putchar(i);
-			if (i < '9' || i < '9')
+			if (i < '9' || c < '9')
 			{
 				putchar(',');
 				putchar(' ');
 			}
-			i++;
+
 		}
-		c++;
+
 	}
 	putchar('\n');
 	return (0);
