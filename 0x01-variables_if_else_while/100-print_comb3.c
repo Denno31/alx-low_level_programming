@@ -12,13 +12,13 @@ int main(void)
 	int c;
 	int i;
 
-	for (c = '0' ; c <= '9' ; c++)
+	for (c = 48; c < 57; c++)
 	{
-		for (i = '0' ; i <= '9' ; i++)
+		for (i = c + 1; i < 58; i++)
 		{
 			putchar(c);
 			putchar(i);
-			if (i < '9' || c < '9')
+			if (c != 56  || i != 57)
 			{
 				putchar(',');
 				putchar(' ');
