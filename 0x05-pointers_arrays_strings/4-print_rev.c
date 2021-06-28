@@ -1,17 +1,22 @@
 #include "holberton.h"
+
 /**
- * print_most_numbers - print all numbers except 2 and 4
- * Return: 0 on success.
+ * print_rev - prints a string in stdout in reverse
+ * @s: string to print
+ *
+ * Return: void
  */
-void print_most_numbers(void)
+void print_rev(char *s)
 {
 	int i = 0;
 
-	while (i <= 9)
+	while (*(s + i))
+		i++;
+	i = i - 1;
+	while (i >= 0)
 	{
-		if (i != 2 && i != 4)
-			_putchar(i + '0');
-		++i;
+		_putchar(*(s + i));
+		i--;
 	}
 	_putchar('\n');
 }
