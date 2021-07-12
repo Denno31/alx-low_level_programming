@@ -1,85 +1,54 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <ctype.h>
-#include "holberton.h"
+#include <stdlib.h>
 
 /**
- * main - Print the minimum number of coins to make change
- * @argc: The number of command line arguments
- * @argv: The command line arguments
+ * main - Find the smallest number of coins to make an amount of change
+ * @argc: Arg count
+ * @argv: Contains all arguments
  *
- * Return: 0 if successful, 1 if number of arguments is not 1
+ * Return: 1 on error, 0 for success
  */
 int main(int argc, char *argv[])
-{
-	int cents;
+{int cents, coins = 0;
 
-	if (argc != 2)
+	if (argc == 2)
+	{
+		cents = atoi(*(argv + 1));
+		while (cents > 0)
+		{
+			if (cents % 25 < cents)
+			{
+				cents -= 25;
+				coins++;
+			}
+			else if (cents % 10 < cents)
+			{
+				cents -= 10;
+				coins++;
+			}
+			else if (cents % 5 < cents)
+			{
+				cents -= 5;
+				coins++;
+			}
+			else if (cents % 2 < cents)
+			{
+				cents -= 2;
+				coins++;
+			}
+			else if (cents % 1 < cents)
+			{
+				cents -= 1;
+				coins++;
+			}
+		}
+	}
+	else
 	{
 		printf("Error\n");
 		return (1);
 	}
-
-	cents = atoi(argv[1]);
-	if (cents <= 0)
-	{
-		printf("0\n");
-		return (0);
-	}
-
-	if (!is_positive_number(argv[1]))
-	{
-		printf("Error\n");
-		return (1);
-	}
-
-	printf("%d\n", number_of_coins(cents));
-
+	printf("%d\n", coins);
 	return (0);
-}
-
-/**
- * is_positive_number - Check if a string contains only digits
- * @number: The string to check
- *
- * Return: 1 if string contains only digits, 0 otherwise
- */
-int is_positive_number(char *number)
-{
-	int i;
-
-	for (i = 0; number[i] != '\0'; i++)
-	{
-		if (!isdigit(number[i]))
-			return (0);
-	}
-
-	return (1);
-}
-
-/**
- * number_of_coins - Determine the minimum number of coins to make change
- * @cents: The amount of change
- *
- * Return: The minimum number of coins
- */
-int number_of_coins(int cents)
-{
-	int coins = 0;
-
-	coins += (cents / 25);
-	cents %= 25;
-
-	coins += (cents / 10);
-	cents %= 10;
-
-	coins += (cents / 5);
-	cents %= 5;
-
-	coins += (cents / 2);
-	cents %= 2;
-
-	coins += cents;
-
-	return (coins);
 }
