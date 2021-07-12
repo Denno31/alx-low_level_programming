@@ -1,40 +1,54 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 /**
- * main - Print result of adding given arguments
- * @argc: Number of arguments
- * @argv: Arguments recieved
+ * main - Find the smallest number of coins to make an amount of change
+ * @argc: Arg count
+ * @argv: Contains all arguments
  *
- * Return: 0 on success, 1 if theres a nondigit arg
+ * Return: 1 on error, 0 for success
  */
 int main(int argc, char *argv[])
-{
-	int sum;
-	int count;
-	int i;
+{int cents, coins = 0;
 
-	count = 1;
-	sum = 0;
-	if (argc == 1)
+	if (argc == 2)
 	{
-		printf("0\n");
-		return (0);
-	}
-	while (count < argc)
-	{
-		for (i = 0; argv[count][i] != '\0'; i++)
+		cents = atoi(*(argv + 1));
+		while (cents > 0)
 		{
-			if (!(isdigit(argv[count][i])))
+			if (cents % 25 < cents)
 			{
-				printf("Error\n");
-				return (1);
+				cents -= 25;
+				coins++;
+			}
+			else if (cents % 10 < cents)
+			{
+				cents -= 10;
+				coins++;
+			}
+			else if (cents % 5 < cents)
+			{
+				cents -= 5;
+				coins++;
+			}
+			else if (cents % 2 < cents)
+			{
+				cents -= 2;
+				coins++;
+			}
+			else if (cents % 1 < cents)
+			{
+				cents -= 1;
+				coins++;
 			}
 		}
-		sum += atoi(argv[count]);
-		count++;
 	}
-	printf("%d\n", sum);
+	else
+	{
+		printf("Error\n");
+		return (1);
+	}
+	printf("%d\n", coins);
 	return (0);
 }
