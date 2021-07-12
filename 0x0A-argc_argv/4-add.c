@@ -3,40 +3,38 @@
 #include <ctype.h>
 
 /**
- * main - arguments to main
- * @argc: first arg is a count
- * @argv: second arg is a pointer to char
+ * main - Print result of adding given arguments
+ * @argc: Number of arguments
+ * @argv: Arguments recieved
  *
- * Return: Always 0
+ * Return: 0 on success, 1 if theres a nondigit arg
  */
 int main(int argc, char *argv[])
 {
-	int x, y;
-	int add = 0;
+	int sum;
+	int count;
+	int i;
 
-	x = 1;
-	while (argv[x])
+	count = 1;
+	sum = 0;
+	if (argc == 1)
 	{
-		y = 1;
-		while (argv[x][y])
+		printf("0\n");
+		return (0);
+	}
+	while (count < argc)
+	{
+		for (i = 0; argv[count][i] != '\0'; i++)
 		{
-			if ((isdigit(argv[x][y]) == 0))
+			if (!(isdigit(argv[count][i])))
 			{
-				printf("error\n");
+				printf("Error\n");
 				return (1);
 			}
-		y++;
 		}
-	x++;
+		sum += atoi(argv[count]);
+		count++;
 	}
-	x = 1;
-
-	while (argv[x] != argv[argc])
-	{
-		add += atoi(argv[x]);
-		x++;
-	}
-
-	printf("%d\n", add);
-return (0);
+	printf("%d\n", sum);
+	return (0);
 }
