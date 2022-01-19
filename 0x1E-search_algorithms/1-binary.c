@@ -1,60 +1,61 @@
 #include "search_algos.h"
 
-/**
- * print_array - Prints the contents of an array.
- * @array: The source of the array to print.
- * @l: The left index of the array.
- * @r: The right index of the array.
- */
-void print_array(int *array, size_t l, size_t r)
-{
-	size_t i;
 
-	if (array)
-	{
-		printf("Searching in array: ");
-		for (i = l; i < l + (r - l + 1); i++)
-			printf("%d%s", *(array + i), i < l + (r - l) ? ", " : "\n");
-	}
+/**
+ * print_array - prints array separated by commas
+ * @array: the array to be printedd
+ * @size: size of the array
+ */
+void print_array(int *array, size_t size)
+{
+	size_t i = 0;
+
+	for ( ; i < size - 1; i++)
+		printf("%i, ", array[i]);
+	printf("%i\n", array[i]);
 }
 
 /**
- * binary_search_index - Searches a value in a sorted array using \
- * a binary search.
- * @array: The array to search in.
- * @l: The left index of the array.
- * @r: The right index of the array.
- * @value: The value to look for.
- *
- * Return: The first index of the value in the array, otherwise -1.
- */
-int binary_search_index(int *array, size_t l, size_t r, int value)
-{
-	size_t m;
-
-	if (!array)
-		return (-1);
-	print_array(array, l, r);
-	m = l + ((r - l) / 2);
-	if (l == r)
-		return (*(array + m) == value ? (int)m : -1);
-	if (value < *(array + m))
-		return (binary_search_index(array, l, m - 1, value));
-	else if (value == *(array + m))
-		return ((int)m);
-	else
-		return (binary_search_index(array, m + 1, r, value));
-}
-
-/**
- * binary_search - Searches a value in a sorted array using a binary search.
- * @array: The array to search in.
- * @size: The length of the array.
- * @value: The value to look for.
- *
- * Return: The index of the value in the array, otherwise -1.
+ * binary_search - an implementation of the binary search
+ *                 algorithm, where the items are sorted
+ *                 and no element is repeated
+ * @array: the array to be searched
+ * @size: the size of the array
+ * @value: the  value of which's location is being searched for
+ * Return: the first location of value inside array or -1 if
+ *          it can't be found
  */
 int binary_search(int *array, size_t size, int value)
 {
-	return (binary_search_index(array, 0, size - 1, value));
+	size_t mid = size / 2;
+	int loc;
+
+
+	if (size == 0 || !array)
+		return (-1);
+
+	printf("Searching in array: ");
+	print_array(array, size);
+
+	/*Base case*/
+	if (size == 1 && array[0] != value)
+		return (-1);
+
+	if (size % 2  == 0)
+		mid -= 1;
+
+	/*main case*/
+	if (array[mid] > value)
+		return (binary_search(array, mid, value));
+	else if (array[mid] < value)
+	{
+		if (size % 2  == 0)
+			mid = mid + 1;
+		loc = binary_search(array + mid + ((size  % 2 == 0) ? 0 : 1), mid, value);
+		if (loc == -1)
+			return (-1);
+		return (loc + mid);
+	}
+
+	return (mid);
 }
